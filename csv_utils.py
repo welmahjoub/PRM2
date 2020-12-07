@@ -39,7 +39,7 @@ def readCommunes(communesFile):
 
     return list_commune
 
-# ecrire la liste des communes dans le fichier result.csv 
+# ecrire la liste des communes dans le fichier result.csv
 def generateOutPut(communes):
     with open('output/result.csv', 'w', newline='') as file:
         fieldnames = ['code', 'name', 'code_postal', 'latitude', 'longitude', 'score']
