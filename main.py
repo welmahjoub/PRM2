@@ -1,4 +1,5 @@
 from commune import Commune
+from traitement import *
 
 communesFile = open('./input/laposte_hexasmal.csv', encoding='utf8')
 adjectiveFile = open('./input/french-word-list-adjectives.csv', 'r')
@@ -7,8 +8,8 @@ adjectiveFile = open('./input/french-word-list-adjectives.csv', 'r')
 def readAdjective():
     global adjectiveFile
     adjective = adjectiveFile.readlines()
-    adjective = adjective[3::]# supprimer l'entete du fichier
-    adjective = [adj for line in adjectives for adj in line.split(';') if adj.isalpha()]
+    adjective = adjective[3::]  # supprimer l'entete du fichier
+    adjective = [adj for line in adjective for adj in line.split(';') if adj.isalpha()]
 
     return adjective
 
@@ -16,8 +17,8 @@ def readAdjective():
 def readCommunes():
     global communesFile
     lines = communesFile.readlines()
-    lines = lines[1::]# supprimer l'entete du fichier
-    list_commune = []
+    lines = lines[1::]  # supprimer l'entete du fichier
+    list_commune = dict()
 
     for line in lines:
         columns = line.split(';')
@@ -32,7 +33,7 @@ def readCommunes():
             longitude = 0
 
         commune = Commune(columns[0], columns[1], latitude, longitude)
-        list_commune.append(commune)
+        list_commune[commune.code]=commune
 
     return list_commune
 
@@ -46,4 +47,13 @@ if __name__ == '__main__':
     print(len(adjectives))
 
     # for commune in communes:
-    #     print(commune)
+    #     print(commune.name)
+
+    compareAdjective(communes, adjectives)
+    # for commune in communes:
+    #      print(commune)
+
+    print(" total : "+str(len(communes)))
+    print(" oil : " + str(number_of_commune_oil(communes)))
+    print(" oc : " + str(number_of_commune_oc(communes)))
+    print(" neutre : " + str(number_of_commune_neutre(communes)))
