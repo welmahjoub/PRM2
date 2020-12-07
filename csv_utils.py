@@ -4,16 +4,20 @@ from classe import Commune
 
 
 # lire le fichier des adjectif francais
-def readAdjective(adjectiveFile):
-    adjective = adjectiveFile.readlines()
-    adjective = adjective[3::]  # supprimer l'entete du fichier
-    adjective = [adj for line in adjective for adj in line.split(';') if adj.isalpha()]
+def readAdjective():
+    with open('./input/adjectives.csv', newline='', encoding='utf8') as csvfile:
+        reader = csv.reader(csvfile, delimiter=';', quotechar='|')
+        adjective = []
+
+        for row in reader:
+            adjective.append(row[0])
 
     return adjective
 
 
 # lire le fichier insee commune
-def readCommunes(communesFile):
+def readCommunes():
+    communesFile = open('./input/laposte_hexasmal.csv', encoding='utf8')
     lines = communesFile.readlines()
     lines = lines[1::]  # supprimer l'entete du fichier
     list_commune = dict()
@@ -33,11 +37,12 @@ def readCommunes(communesFile):
 
         code = columns[0]
         name = columns[1]
-        code_postal=columns[2]
+        code_postal = columns[2]
         commune = Commune(code, name, code_postal, latitude, longitude)
-        list_commune[code] = commune # ajouter la commune dans la liste
+        list_commune[code] = commune  # ajouter la commune dans la liste
 
     return list_commune
+
 
 # ecrire la liste des communes dans le fichier result.csv
 def generateOutPut(communes):

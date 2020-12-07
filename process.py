@@ -1,15 +1,11 @@
-
-
 def compare_commune_with_Adjective(communes, adjective):
-
     for commune in communes.values():
 
-        if commune.name.startswith(tuple(adjective)):
+        if commune.name.startswith(tuple(adjective)):  # oil :adjectif precede le nom
             commune.score = -1
 
-        if commune.name.endswith(tuple(adjective)):
+        if commune.name.endswith(tuple(adjective)):  # oc : adjectif suit le nom
             commune.score = 1
-
 
 
 def number_of_commune_oil(communes):
