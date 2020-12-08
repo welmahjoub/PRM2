@@ -4,15 +4,16 @@ from classe import Commune
 
 
 # lire le fichier des adjectif francais
-def readAdjective():
-    with open('./input/adjectives.csv', newline='', encoding='utf8') as csvfile:
-        reader = csv.reader(csvfile, delimiter=';', quotechar='|')
+def readFile_txt(filename):
+    with open('./input/'+filename, newline='', encoding='utf8') as file:
+        reader = csv.reader(file, quotechar='|')
         adjective = []
 
         for row in reader:
             adjective.append(row[0])
 
     return adjective
+
 
 
 # lire le fichier insee commune
